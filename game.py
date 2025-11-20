@@ -10,7 +10,7 @@ toolPrice = (0, 25, 50, 250, 500)
 toolEfficiency = (5, 10, 20, 35, 50)
 # Tools owned, however, will be set as a list since there can be many of each kind owned.
 toolsOwned = [1, 0, 0, 0, 0]
-money = 0
+money = 500
 
 def store():
   global money
@@ -30,21 +30,30 @@ def store():
   print("What would you like to do?")
   user_input = input("> ")
 
-  for index in range(1, len(toolsOwned)):
+  for index in range(1, 5):
     if user_input == str(index): ## Valid Input
       if money >= toolPrice[index]: ## Purchase
         money -= toolPrice[index]
         toolsOwned[index] += 1
+        store()
+        return
       
       else: ## Too Broke
         print("Sorry, but it looks like you cant afford that!")
         store()
+        return
     
     elif user_input == "5":
       print("Thanks for stopping by!")
+      return
 
-    else: ## Invalid Input
-      print("Sorry, I didn't quite get that...")
-      store()
+  print("Sorry, I didn't quite get that...")
+  store()
 
 store()
+
+
+
+
+
+
