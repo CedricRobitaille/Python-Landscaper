@@ -4,7 +4,12 @@
 ## Using just your teeth, you can spend the day cutting lawns and make $1. You can do this as much as you want.
 ## As you cut grass, and accumulate money... You may chose to purchase new lawncutting tools! These tools will increase your income per lawn!
 
+# Will need the time module to handle timeouts on actions.
+import time
+
 # I'll be using tupples to store values for the tools available and tool price as those will remain fixed values
+toolAction = ("Chomp", "Snip", "ptptptpt", "BRRR", "'Uuugh...'")
+toolDelay = (2, 1, 1, .5, .25)
 toolsAvailable = ("Teeth", "Rusty Scissors", "Push Lawnmower", "Battery-Powered Lawnmower", "Students")
 toolPrice = (0, 25, 50, 250, 500)
 toolEfficiency = (5, 10, 20, 35, 50)
@@ -50,6 +55,39 @@ def store():
 
 
 
+def cutGrassAction(toolIndex):
+  global toolAction, toolDelay
+
+  # Sound effect based on the tool used
+  print(toolAction[toolIndex])
+  #Delay based on the tool used
+  time.sleep(toolDelay[toolIndex])
+
+def cutGrass():
+  global toolsOwned, money, toolPrice
+
+  print("\n\n\n")
+  print("Cutting Grass...")
+
+  income = 0
+  ## 2D Loop
+  ### D1 -> Tool
+  ### D2 -> Qty
+  #### Have 1 action for every tool currently owned, 
+  #### Where every action is based on the tool type being used.
+  for toolIndex in range(len(toolsOwned)):
+    for qty in range(toolsOwned[toolIndex]):
+      cutGrassAction(toolIndex)
+      income += toolEfficiency[toolIndex]
+
+  money += income
+  print("You made $" + str(income))
+  actionSelection()
+
+
+
+
+
 def actionSelection(warning = False):
   global moneyglobal, toolsAvailable
 
@@ -73,7 +111,7 @@ def actionSelection(warning = False):
   user_input = input("> ")
 
   if user_input == "1":
-    print("CUT GRASS FUNCTION")
+    cutGrass()
 
   elif user_input == "2":
     store()
