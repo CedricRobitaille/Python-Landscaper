@@ -15,7 +15,7 @@ toolPrice = (0, 25, 50, 250, 500)
 toolEfficiency = (5, 10, 20, 35, 50)
 # Tools owned, however, will be set as a list since there can be many of each kind owned.
 toolsOwned = [1, 0, 0, 0, 0]
-money = 500
+money = 0
 
 def store():
   global money, toolsAvailable, toolPrice, toolEfficiency, toolsOwned
@@ -63,6 +63,9 @@ def cutGrassAction(toolIndex):
   #Delay based on the tool used
   time.sleep(toolDelay[toolIndex])
 
+
+
+
 def cutGrass():
   global toolsOwned, money, toolPrice
 
@@ -85,6 +88,25 @@ def cutGrass():
   actionSelection()
 
 
+
+def closeGame():
+  global toolsOwned, money
+  print("\n\n\n")
+  print("WARNING")
+  print("You are trying to reset your progress.")
+  print("This change cannot be undone.")
+  print("Would you like to proceed? (Y / N)")
+  user_input = input("> ")
+
+  if user_input == "Y":
+    toolsOwned = [1, 0, 0, 0, 0] 
+    money = 0
+    print("| GAME DATA RESET |")
+    actionSelection()
+  elif user_input == "N":
+    actionSelection()
+  else:
+    closeGame()
 
 
 
@@ -117,7 +139,7 @@ def actionSelection(warning = False):
     store()
   
   elif user_input == "9":
-    print("RESET GAME CONFIRMATION")
+    closeGame()
   
   else:
     actionSelection(True)
